@@ -1,0 +1,4 @@
+1. R-bloggers www.r-bloggers.com/
+2. r-cookbook cookbook-r.com/
+3. GGplot2 docs
+ocs.ggplot2.org/

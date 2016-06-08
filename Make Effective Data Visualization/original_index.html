@@ -1,0 +1,49 @@
+<html>
+<div id="chartContainer">
+
+  <style>
+    h2 {
+      text-align: center;
+      font-size: 20px;
+      font : sans-serif;
+    }
+    text.dimple-title {
+      font-size: 20px;
+    }
+  </style>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+  <script type="text/javascript">
+    var margin = 200,
+        width = 1400 - margin,
+        height = 600 - margin;
+    // debugger;
+    d3.select("body").append("h2").text("Proportion of the survived Titanic passengers across Passenger Classes and Gender");
+    var svg = d3.select("body")
+      .append("svg")
+        .attr("width", width + margin)
+        .attr("height", height + margin)
+      .append('g')
+        .classed('chart', true);
+    // var svg = dimple.newSvg("#chartContainer", 900, 500);
+    d3.csv("titanic.csv", function (data) {
+        var myChart = new dimple.chart(svg, data);
+        // myChart.setBounds(65, 30, 505, 330)
+        x = myChart.addCategoryAxis("x", ["Pclass", "Sex"]);
+        y = myChart.addMeasureAxis("y", "Survived");
+        //debugger;
+        // mySeries.aggregate = dimple.aggregateMethod.avg
+        // myChart.addMeasureAxis("z", "Operating Profit");
+        var bubbles = myChart.addSeries("Sex", dimple.plot.bubble).aggregate = dimple.aggregateMethod.avg;
+        var lines = myChart.addSeries("Pclass", dimple.plot.line).aggregate = dimple.aggregateMethod.avg;
+        myChart.addLegend(70, 10, 1200, 50, "right");
+        myChart.title = "Proportion of the survived Titanic passengers across Passenger Classes and Gender";
+        x.title = "Passenger Classes(1, 2, 3)/ Gender";
+        y.title = "Proportion of the survived";
+        x.fontSize = "auto";
+        y.fontSize = "auto";
+        myChart.draw();
+    });
+  </script>
+</div>
+</html>
